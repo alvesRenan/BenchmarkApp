@@ -22,12 +22,12 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MatrixActivity"/>
         <activity android:name=".BenchImageActivity"/>
+        <activity android:name=".FibonacciActivity"/>
         <activity android:name=".NQueensActivity"/>
     </application>
 
