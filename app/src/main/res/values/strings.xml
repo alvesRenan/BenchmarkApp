@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">BenchmarkApp</string>
-    <string name="btnMatrix">Launch MatrixOperations</string>
-    <string name="btnBenchImage">Launch BenchImage</string>
-    <string name="btnFibonacci">Launch Fibonacci</string>
+    <string name="btnMatrix">Launch \n MatrixOperations</string>
+    <string name="btnBenchImage">Launch \n BenchImage</string>
+    <string name="btnFibonacci">Launch \n Fibonacci</string>
+    <string name="btnNQueens">Launch \n NQueens</string>
 
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>

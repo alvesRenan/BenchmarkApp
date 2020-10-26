@@ -21,5 +21,9 @@ class MainActivity : AppCompatActivity() {
         btnFibonacci.setOnClickListener {
             startActivity( Intent(applicationContext, FibonacciActivity::class.java) )
         }
+
+        btnNQueens.setOnClickListener {
+            startActivity( Intent(applicationContext, NQueensActivity::class.java) )
+        }
     }
 }
