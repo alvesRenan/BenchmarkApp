@@ -17,5 +17,9 @@ class MainActivity : AppCompatActivity() {
         btnBenchImage.setOnClickListener {
             startActivity( Intent(applicationContext, BenchImageActivity::class.java) )
         }
+
+        btnFibonacci.setOnClickListener {
+            startActivity( Intent(applicationContext, FibonacciActivity::class.java) )
+        }
     }
 }

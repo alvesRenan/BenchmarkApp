@@ -2,6 +2,7 @@
     <string name="app_name">BenchmarkApp</string>
     <string name="btnMatrix">Launch MatrixOperations</string>
     <string name="btnBenchImage">Launch BenchImage</string>
+    <string name="btnFibonacci">Launch Fibonacci</string>
 
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>

@@ -9,24 +9,36 @@
 
     <Button
         android:id="@+id/btnMatrix"
-        android:layout_width="0dp"
+        android:layout_width="204dp"
         android:layout_height="0dp"
-        android:layout_marginTop="133dp"
-        android:layout_marginBottom="66dp"
+        android:layout_marginTop="158dp"
+        android:layout_marginBottom="27dp"
         android:text="@string/btnMatrix"
         app:layout_constraintBottom_toTopOf="@+id/btnBenchImage"
-        app:layout_constraintEnd_toEndOf="@+id/btnBenchImage"
-        app:layout_constraintStart_toStartOf="@+id/btnBenchImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnBenchImage"
         android:layout_width="204dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="293dp"
+        android:layout_marginBottom="47dp"
         android:text="@string/btnBenchImage"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnFibonacci"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnMatrix" />
+
+    <Button
+        android:id="@+id/btnFibonacci"
+        android:layout_width="204dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="139dp"
+        android:text="@string/btnFibonacci"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBenchImage" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
