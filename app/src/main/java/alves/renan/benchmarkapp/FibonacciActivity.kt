@@ -16,6 +16,7 @@ import br.ufc.mdcc.mpos.config.Inject
 import br.ufc.mdcc.mpos.config.MposConfig
 import kotlinx.android.synthetic.main.activity_fibonacci.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.lang.Exception
 
 @MposConfig
@@ -70,24 +71,25 @@ class FibonacciActivity : AppCompatActivity() {
     private fun computeFib() {
         val n = input.text.toString().toInt()
 
-        doAsync {
-            remoteExecutionTime.text = "Computing..."
+        remoteExecutionTime.text = "Computing..."
 
+        // The operation needs to be done in another thread
+        // to prevent 'android.os.NetworkOnMainThreadException'
+        doAsync {
             val initTime = System.currentTimeMillis()
 
             val result = try {
                 fibonacci.compFibonacci(n)
             } catch (e: Exception) {
+                e.printStackTrace()
                 null
             }
 
             val endTime = System.currentTimeMillis() - initTime
 
-            remoteExecutionTime.text = result?.let {
-                "Value: $it ($endTime ms)"
-            } ?: {
-                "Error computing fibonacci"
-            }.toString()
+            uiThread {
+                remoteExecutionTime.text = result?.toString() ?: "Error computing fibonacci"
+            }
         }
     }
 }

@@ -19,16 +19,26 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MatrixActivity"/>
-        <activity android:name=".BenchImageActivity"/>
-        <activity android:name=".FibonacciActivity"/>
-        <activity android:name=".NQueensActivity"/>
+        <activity
+            android:name=".MatrixActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".BenchImageActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".FibonacciActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".NQueensActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
