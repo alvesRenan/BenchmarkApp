@@ -78,4 +78,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/fibonacci" />
 
+    <Spinner
+        android:id="@+id/spin_method"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

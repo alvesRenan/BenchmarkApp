@@ -1,6 +1,6 @@
 package alves.renan.benchmarkapp.fibonacci
 
-class FibonacciImpl : Fibonacci {
+class FibonacciMpOS : FibonacciStrategy {
 
     override fun compFibonacci(n: Int): Int {
         return if (n <= 2) {

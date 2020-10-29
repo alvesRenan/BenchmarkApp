@@ -42,4 +42,12 @@
         <item>Sharpen</item>
         <item>Red Ton</item>
     </string-array>
+
+    <string-array name="spinner_method">
+        <item>Local</item>
+        <item>gRPC/Proto</item>
+        <item>MpOS</item>
+        <item>CAOS</item> <!--PASSO 2: INSERIR O NOME DA SOLUCAO NO SPINNER-->
+        <!--<item>NEW METHOD HERE!</item>-->
+    </string-array>
 </resources>

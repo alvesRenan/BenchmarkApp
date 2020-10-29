@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package grpcfibonacci;
+
+option java_multiple_files = true;
+
+service Fibonacci {
+  rpc compute (Position) returns (Value) {}
+}
+
+message Position { int32 number = 1; }
+message Value { int32 number = 1; }
