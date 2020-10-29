@@ -1,6 +1,5 @@
 package alves.renan.benchmarkapp.fibonacci;
 
-import alves.renan.benchmarkapp.fibonacci.grpcfibonacci.FibonacciCAOS;
 
 public class FibonacciFactory {
 

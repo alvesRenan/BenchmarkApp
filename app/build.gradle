@@ -21,6 +21,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
 }
 
 dependencies {
@@ -32,6 +36,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'javax.annotation:javax.annotation-api:1.2'
+    implementation "io.grpc:protoc-gen-grpc-java:1.26.0"
+    implementation "io.grpc:grpc-all:1.28.1"
 
     implementation 'org.jetbrains.anko:anko-common:0.9'
     implementation files('libs/misc.jar')

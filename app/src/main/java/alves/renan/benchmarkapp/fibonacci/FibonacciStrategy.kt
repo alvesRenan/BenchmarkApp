@@ -4,10 +4,12 @@ import br.ufc.mdcc.mpos.offload.Remotable
 
 interface FibonacciStrategy {
 
-    // TODO: COLOCAR UM METODO INIT (O QUE FAZER ANTES DO PROCESSAMENTO? ABRIR CHANNEL, POR EX?)
+    // METODO PARA IMPLEMENTAR TUDO AQUILO QUE E NECESSARIO ANTES DO PROCESSAMENTO DA FUNCAO
+    fun preTest()
 
     @Remotable(status = true, value = Remotable.Offload.STATIC)
     fun compFibonacci(n: Int): Int
 
-    // TODO: COLOCAR UM METODO END (O QUE FAZER DEPOIS DO PROCESSAMENTO? FECHAR CHANNEL, POR EX?)
+    // METODO PARA IMPLEMENTAR TUDO AQUILO QUE E NECESSARIO DEPOIS DO PROCESSAMENTO DA FUNCAO
+    fun posTest()
 }

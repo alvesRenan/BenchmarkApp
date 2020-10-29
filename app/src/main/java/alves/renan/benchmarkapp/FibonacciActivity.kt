@@ -28,11 +28,8 @@ import java.util.*
 class FibonacciActivity : AppCompatActivity() {
 
     @Inject(FibonacciMpOS::class)
-    lateinit var fibonacci: FibonacciStrategy
 
     private lateinit var receiver: BroadcastReceiver
-
-    //private var spinnerMethod : Spinner? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +44,6 @@ class FibonacciActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerMethod.adapter = adapter
         }
-
-        /*spinnerMethod = this.spin_method
-        val aa = ArrayAdapter.createFromResource(this, R.array.spinner_method, android.R.layout.simple_spinner_item)
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerMethod!!.setAdapter(aa)*/
 
         startBtn.setOnClickListener { computeFib() }
 
@@ -91,19 +83,22 @@ class FibonacciActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun computeFib() {
         val n = input.text.toString().toInt()
+
         val name_method = spin_method.selectedItem.toString()
+        val fibonacci : FibonacciStrategy = FibonacciFactory.getProcessMethod(name_method);
 
         //doAsync {
         remoteExecutionTime.text = "Computing with $name_method..."
 
+        fibonacci.preTest()
         val initTime = System.currentTimeMillis()
-
         val result = try {
-            FibonacciFactory.getProcessMethod(name_method).compFibonacci(n);
+            fibonacci.compFibonacci(n);
         } catch (e: Exception) {
             null
         }
-gi
+        fibonacci.posTest()
+
         val endTime = System.currentTimeMillis() - initTime
 
         remoteExecutionTime.text = result?.let {
