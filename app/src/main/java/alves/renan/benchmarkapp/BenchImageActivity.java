@@ -166,22 +166,19 @@ public final class BenchImageActivity extends Activity {
 
         System.gc();
 
-        // O BroadcastReceiver chama esse método duas vezes, sendo que na primeira o filter vem null
-        if (cloudletFilter != null || filterLocal != null) {
-            if ((config.getFilter().equals("Cartoonizer") || config.getFilter().equals("Benchmark")) && vmSize <= 64 && (config.getSize().equals("8MP") || config.getSize().equals("4MP"))) {
-                dialogSupportFilter();
-            } else {
-                switch (config.getLocal()) {
-                    case "Local":
-                        new ImageFilterTask(getApplication(), filterLocal, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                        break;
-                    case "Cloudlet":
-                        new ImageFilterTask(getApplication(), cloudletFilter, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                        break;
-                    default:
-                        new ImageFilterTask(getApplication(), internetFilter, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                        break;
-                }
+        if ((config.getFilter().equals("Cartoonizer") || config.getFilter().equals("Benchmark")) && vmSize <= 64 && (config.getSize().equals("8MP") || config.getSize().equals("4MP"))) {
+            dialogSupportFilter();
+        } else {
+            switch (config.getLocal()) {
+                case "Local":
+                    new ImageFilterTask(getApplication(), filterLocal, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    break;
+                case "Cloudlet":
+                    new ImageFilterTask(getApplication(), cloudletFilter, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    break;
+                default:
+                    new ImageFilterTask(getApplication(), internetFilter, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    break;
             }
         }
     }

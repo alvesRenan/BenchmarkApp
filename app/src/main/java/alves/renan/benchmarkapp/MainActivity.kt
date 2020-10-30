@@ -1,14 +1,35 @@
+@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+
 package alves.renan.benchmarkapp
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    lateinit var receiver: BroadcastReceiver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val filter = IntentFilter().apply { addAction("benchmark.LAUNCH") }
+        receiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                intent?.let {
+                    launchActivity(
+                        intent.getStringExtra("activity")
+                    )
+                }
+            }
+        }
+
+        registerReceiver(receiver, filter)
 
         btnMatrix.setOnClickListener {
             startActivity( Intent(applicationContext, MatrixActivity::class.java) )
@@ -25,5 +46,23 @@ class MainActivity : AppCompatActivity() {
         btnNQueens.setOnClickListener {
             startActivity( Intent(applicationContext, NQueensActivity::class.java) )
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        unregisterReceiver(receiver)
+    }
+
+    private fun launchActivity(activityName: String) {
+        val btn = when (activityName) {
+            "matrix" -> btnMatrix
+            "benchImage" -> btnBenchImage
+            "fibonacci" -> btnFibonacci
+            "nqueens" -> btnNQueens
+            else -> null
+        }
+
+        btn?.performClick()
     }
 }
