@@ -18,6 +18,8 @@ import br.ufc.mdcc.mpos.MposFramework
 import br.ufc.mdcc.mpos.config.Inject
 import br.ufc.mdcc.mpos.config.MposConfig
 import kotlinx.android.synthetic.main.activity_fibonacci.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 @MposConfig
 class FibonacciActivity : AppCompatActivity() {
@@ -82,29 +84,32 @@ class FibonacciActivity : AppCompatActivity() {
 
         val n = input.text.toString().toInt()
 
-        val name_method = spin_method.selectedItem.toString()
-        val fibonacci : FibonacciStrategy = FibonacciFactory.getProcessMethod(name_method);
+        val methodName = spin_method.selectedItem.toString()
+        val fibonacci : FibonacciStrategy = FibonacciFactory.getProcessMethod(methodName);
 
-        //doAsync {
-        remoteExecutionTime.text = "Computing with $name_method..."
+        /*
+        The operation needs to be done in another thread
+        to prevent 'android.os.NetworkOnMainThreadException'
+        */
+        doAsync {
+            remoteExecutionTime.text = "Computing with $methodName..."
 
-        fibonacci.preTest()
-        val initTime = System.currentTimeMillis()
-        val result = try {
-            fibonacci.compFibonacci(n);
-        } catch (e: Exception) {
-            null
+            fibonacci.preTest()
+            val initTime = System.currentTimeMillis()
+            val result = try {
+                fibonacci.compFibonacci(n);
+            } catch (e: Exception) {
+                null
+            }
+            fibonacci.posTest()
+
+            val endTime = System.currentTimeMillis() - initTime
+
+            // puts the value on the UI thread
+            uiThread {
+                remoteExecutionTime.text = result?.toString() ?: "Error computing fibonacci"
+            }
         }
-        fibonacci.posTest()
-
-        val endTime = System.currentTimeMillis() - initTime
-
-        remoteExecutionTime.text = result?.let {
-            "Value: $it ($endTime ms)"
-        } ?: {
-            "Error computing fibonacci"
-        }.toString()
-        //}
     }
 }
 

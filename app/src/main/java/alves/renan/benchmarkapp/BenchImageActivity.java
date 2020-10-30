@@ -49,7 +49,7 @@ public final class BenchImageActivity extends Activity {
 
     private final String clsName = MainActivity.class.getName();
 
-    private Filter filterLocal = new ImageFilter();
+    private final Filter filterLocal = new ImageFilter();
 
     @Inject(ImageFilter.class)
     private CloudletFilter cloudletFilter;
@@ -166,28 +166,25 @@ public final class BenchImageActivity extends Activity {
 
         System.gc();
 
-        // O BroadcastReceiver chama esse método duas vezes, sendo que na primeira o filter vem null
-        if (cloudletFilter != null || filterLocal != null) {
-            if ((config.getFilter().equals("Cartoonizer") || config.getFilter().equals("Benchmark")) && vmSize <= 64 && (config.getSize().equals("8MP") || config.getSize().equals("4MP"))) {
-                dialogSupportFilter();
-            } else {
-                switch (config.getLocal()) {
-                    case "Local":
-                        new ImageFilterTask(getApplication(), filterLocal, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                        break;
-                    case "Cloudlet":
-                        new ImageFilterTask(getApplication(), cloudletFilter, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                        break;
-                    default:
-                        new ImageFilterTask(getApplication(), internetFilter, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                        break;
-                }
+        if ((config.getFilter().equals("Cartoonizer") || config.getFilter().equals("Benchmark")) && vmSize <= 64 && (config.getSize().equals("8MP") || config.getSize().equals("4MP"))) {
+            dialogSupportFilter();
+        } else {
+            switch (config.getLocal()) {
+                case "Local":
+                    new ImageFilterTask(getApplication(), filterLocal, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    break;
+                case "Cloudlet":
+                    new ImageFilterTask(getApplication(), cloudletFilter, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    break;
+                default:
+                    new ImageFilterTask(getApplication(), internetFilter, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    break;
             }
         }
     }
 
     private void configureButton() {
-        Button but = (Button) findViewById(R.id.button_execute);
+        Button but = findViewById(R.id.button_execute);
         but.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,10 +195,10 @@ public final class BenchImageActivity extends Activity {
     }
 
     private void configureSpinner() {
-        Spinner spinnerImage = (Spinner) findViewById(R.id.spin_image);
-        Spinner spinnerFilter = (Spinner) findViewById(R.id.spin_filter);
-        Spinner spinnerSize = (Spinner) findViewById(R.id.spin_size);
-        Spinner spinnerLocal = (Spinner) findViewById(R.id.spin_local);
+        Spinner spinnerImage = findViewById(R.id.spin_image);
+        Spinner spinnerFilter = findViewById(R.id.spin_filter);
+        Spinner spinnerSize = findViewById(R.id.spin_size);
+        Spinner spinnerLocal = findViewById(R.id.spin_local);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_img, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -232,12 +229,12 @@ public final class BenchImageActivity extends Activity {
     private void configureStatusViewOnTaskStart() {
         configureStatusView("Status: Submetendo Tarefa");
 
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        ImageView imageView = findViewById(R.id.imageView);
         imageView.setImageBitmap(null);
     }
 
     private void configureStatusView(String status) {
-        TextView tv_vmsize = (TextView) findViewById(R.id.text_vmsize);
+        TextView tv_vmsize = findViewById(R.id.text_vmsize);
         vmSize = Runtime.getRuntime().maxMemory() / (1024 * 1024);
         tv_vmsize.setText("VMSize " + vmSize + "MB");
 
@@ -249,21 +246,21 @@ public final class BenchImageActivity extends Activity {
             tv_vmsize.setTextColor(Color.GREEN);
         }
 
-        TextView tv_execucao = (TextView) findViewById(R.id.text_exec);
+        TextView tv_execucao = findViewById(R.id.text_exec);
         tv_execucao.setText("Tempo de\nExecução: 0s");
 
-        TextView tv_tamanho = (TextView) findViewById(R.id.text_size);
+        TextView tv_tamanho = findViewById(R.id.text_size);
         tv_tamanho.setText("Tamanho/Foto: " + config.getSize() + "/" + photoName);
 
-        TextView tv_status = (TextView) findViewById(R.id.text_status);
+        TextView tv_status = findViewById(R.id.text_status);
         tv_status.setText(status);
     }
 
     private void getConfigFromSpinner() {
-        Spinner spinnerImage = (Spinner) findViewById(R.id.spin_image);
-        Spinner spinnerFilter = (Spinner) findViewById(R.id.spin_filter);
-        Spinner spinnerSize = (Spinner) findViewById(R.id.spin_size);
-        Spinner spinnerLocal = (Spinner) findViewById(R.id.spin_local);
+        Spinner spinnerImage = findViewById(R.id.spin_image);
+        Spinner spinnerFilter = findViewById(R.id.spin_filter);
+        Spinner spinnerSize = findViewById(R.id.spin_size);
+        Spinner spinnerLocal = findViewById(R.id.spin_local);
 
         photoName = (String) spinnerImage.getSelectedItem();
         config.setImage(photoNameToFileName(photoName));
@@ -296,12 +293,12 @@ public final class BenchImageActivity extends Activity {
         alertDialogBuilder.create().show();
 
         buttonStatusChange(R.id.button_execute, true, "Inicia");
-        TextView tv_status = (TextView) findViewById(R.id.text_status);
+        TextView tv_status = findViewById(R.id.text_status);
         tv_status.setText("Status: Requisição anterior não suporta Filtro!");
     }
 
     private void buttonStatusChange(int id, boolean state, String text) {
-        Button but = (Button) findViewById(id);
+        Button but = findViewById(id);
         but.setEnabled(state);
         but.setText(text);
     }
@@ -329,17 +326,17 @@ public final class BenchImageActivity extends Activity {
         config.setOutputDirectory(outputDir);
     }
 
-    private TaskResultAdapter<ResultImage> taskResultAdapter = new TaskResultAdapter<ResultImage>() {
+    private final TaskResultAdapter<ResultImage> taskResultAdapter = new TaskResultAdapter<ResultImage>() {
         @Override
         public void completedTask(ResultImage obj) {
             if (obj != null) {
-                ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                ImageView imageView = findViewById(R.id.imageView);
                 imageView.setImageBitmap(obj.getBitmap());
 
-                TextView tv_tamanho = (TextView) findViewById(R.id.text_size);
+                TextView tv_tamanho = findViewById(R.id.text_size);
                 tv_tamanho.setText("Tamanho/Foto: " + config.getSize() + "/" + photoName);
 
-                TextView tv_execucao = (TextView) findViewById(R.id.text_exec);
+                TextView tv_execucao = findViewById(R.id.text_exec);
                 if (obj.getTotalTime() != 0) {
                     double segundos = obj.getTotalTime() / 1000.0;
                     tv_execucao.setText("Tempo de\nExecução: " + String.format("%.3f", segundos) + "s");
@@ -351,7 +348,7 @@ public final class BenchImageActivity extends Activity {
                     tv_execucao.setText("Tempo de\nExecução: " + String.format("%.3f", segundos) + "s");
                 }
             } else {
-                TextView tv_status = (TextView) findViewById(R.id.text_status);
+                TextView tv_status = findViewById(R.id.text_status);
                 tv_status.setText("Status: Algum Error na transmissão!");
             }
             buttonStatusChange(R.id.button_execute, true, "Inicia");
@@ -359,7 +356,7 @@ public final class BenchImageActivity extends Activity {
 
         @Override
         public void taskOnGoing(int completed, String statusText) {
-            TextView tv_status = (TextView) findViewById(R.id.text_status);
+            TextView tv_status = findViewById(R.id.text_status);
             tv_status.setText("Status: " + statusText);
         }
     };

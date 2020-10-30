@@ -1,6 +1,10 @@
 package alves.renan.benchmarkapp
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +15,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var receiver: BroadcastReceiver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val layout : LinearLayout = findViewById(R.id.MainLinearLayout)
-
         val apps_names = resources.getStringArray(R.array.apps_names).iterator()
         apps_names.forEach {
             var chkBox = RadioButton(this)
@@ -41,5 +46,4 @@ class MainActivity : AppCompatActivity() {
             startActivity( Intent(applicationContext, app_activity::class.java) )
         }
     }
-
 }
