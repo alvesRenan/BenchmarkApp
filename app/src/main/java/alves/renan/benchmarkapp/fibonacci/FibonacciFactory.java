@@ -7,7 +7,8 @@ public class FibonacciFactory {
         FibonacciStrategy strategy = null;
 
         if (method.equals("gRPC/Proto")) {
-            strategy = new FibonacciGRPCPBuf("192.168.1.5", 50051);
+            //strategy = new FibonacciGRPCPBuf("192.168.1.2", 50051);
+            strategy = new FibonacciGRPCPBuf("192.168.1.5", 50051, false);
         } else if (method.equals("Local")) {
             strategy = new FibonacciLocal();
         } else if (method.equals("MpOS")) {

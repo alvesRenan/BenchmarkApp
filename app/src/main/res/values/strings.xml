@@ -50,4 +50,12 @@
         <item>CAOS</item> <!--PASSO 2: INSERIR O NOME DA SOLUCAO NO SPINNER-->
         <!--<item>NEW METHOD HERE!</item>-->
     </string-array>
+
+    <string-array name="apps_names">
+        <item>MatrixApp</item>
+        <item>BenchImageApp</item>
+        <item>FibonacciApp</item>
+        <item>NQueensApp</item> <!-- PASSO 2: INSERIR ONOME DA NOVA APLICACAO -->
+        <!--<item>NEW APP HERE!</item>-->
+    </string-array>
 </resources>

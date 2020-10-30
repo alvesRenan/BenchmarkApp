@@ -11,9 +11,6 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
@@ -21,8 +18,6 @@ import br.ufc.mdcc.mpos.MposFramework
 import br.ufc.mdcc.mpos.config.Inject
 import br.ufc.mdcc.mpos.config.MposConfig
 import kotlinx.android.synthetic.main.activity_fibonacci.*
-import org.jetbrains.anko.doAsync
-import java.util.*
 
 @MposConfig
 class FibonacciActivity : AppCompatActivity() {
@@ -82,6 +77,9 @@ class FibonacciActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun computeFib() {
+
+        //FibonacciGRPCPBufServer.run()
+
         val n = input.text.toString().toInt()
 
         val name_method = spin_method.selectedItem.toString()

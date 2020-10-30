@@ -1,40 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:columnCount="2"
-    android:rowCount="2"
-    android:orientation="horizontal"
-    tools:context=".MainActivity" >
+    android:layout_height="match_parent">
 
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/MainLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </RadioGroup>
+    </ScrollView>
     <Button
-        android:id="@+id/btnMatrix"
-        android:layout_gravity="fill"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:text="@string/btnMatrix"/>
-
-    <Button
-        android:id="@+id/btnBenchImage"
-        android:layout_gravity="fill"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:text="@string/btnBenchImage"/>
-
-    <Button
-        android:id="@+id/btnNQueens"
-        android:layout_gravity="fill"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:text="@string/btnNQueens"/>
-
-    <Button
-        android:id="@+id/btnFibonacci"
-        android:layout_gravity="fill"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:text="@string/btnFibonacci"/>
-
-</GridLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:text="launch"
+            android:onClick="launchApp"/>
+</RelativeLayout>

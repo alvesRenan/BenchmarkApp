@@ -4,8 +4,7 @@ public class NQueensBacktracking implements NQueens{
 
     public boolean canPlaceQueen(int r, int c, int[] x) {
         for (int i = 0; i < r; i++) {
-            if (x[i] == c || (i - r) == (x[i] - c) ||(i - r) == (c - x[i]))
-            {
+            if (x[i] == c || ((i - r) == (x[i] - c)) || ((i - r) == (c - x[i]))) {
                 return false;
             }
         }
