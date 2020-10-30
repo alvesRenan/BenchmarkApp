@@ -138,23 +138,21 @@ public final class BenchImageActivity extends Activity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        switch (item.getItemId()) {
-            case R.id.menu_action_export:
-                alertDialogBuilder.setTitle("Exportar Resultados");
-                alertDialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                alertDialogBuilder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        new ExportData(BenchImageActivity.this, "benchimage2_data.csv").execute();
-                    }
-                });
-                alertDialogBuilder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                alertDialogBuilder.setMessage("Deseja exportar resultados?");
-                alertDialogBuilder.create().show();
-                break;
+        if (item.getItemId() == R.id.menu_action_export) {
+            alertDialogBuilder.setTitle("Exportar Resultados");
+            alertDialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            alertDialogBuilder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    new ExportData(BenchImageActivity.this, "benchimage2_data.csv").execute();
+                }
+            });
+            alertDialogBuilder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            alertDialogBuilder.setMessage("Deseja exportar resultados?");
+            alertDialogBuilder.create().show();
         }
 
         return true;
@@ -174,7 +172,9 @@ public final class BenchImageActivity extends Activity {
                     new ImageFilterTask(getApplication(), filterLocal, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     break;
                 case "Cloudlet":
-                    new ImageFilterTask(getApplication(), cloudletFilter, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    if (cloudletFilter != null) {
+                        new ImageFilterTask(getApplication(), cloudletFilter, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    }
                     break;
                 default:
                     new ImageFilterTask(getApplication(), internetFilter, config, taskResultAdapter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
